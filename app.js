@@ -358,18 +358,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const details = document.createElement("div");
     details.innerHTML = `
-    <h2>${book.volumeInfo.title}</h2>
+    <h2 style="font-size: 12px";>${book.volumeInfo.title}</h2>
     <p>Author(s): ${
       book.volumeInfo.authors
         ? book.volumeInfo.authors.join(", ")
         : "Unknown Author"
     }</p>
-    <p>Price: ${generateRandomPrice()}</p>
-    <p>Description: ${
+    <p style="font-size: 5px";>Price: ${generateRandomPrice()}</p>
+    <p style="font-size: 5px";>Description: ${
       book.volumeInfo.description || "No description available."
     }</p>
     
-    <img src="${
+    <img style="width: 50px; height: 50px;" src="${
       book.volumeInfo.imageLinks?.thumbnail || "placeholder-image.jpg"
     }" alt="Book Cover">
   `;

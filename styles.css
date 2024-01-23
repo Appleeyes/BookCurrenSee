@@ -783,6 +783,12 @@ button:hover {
         margin-top: 7px;
     }
 
+        #featured .price,
+        #featured .price p {
+            font-size: 12px;
+            letter-spacing: 0.16px;
+        }
+
     #featured button {
         margin-bottom: 20px;
     }
@@ -822,14 +828,14 @@ button:hover {
 
     .modal {
         position: fixed;
-        top: 50%;
-        left: 25%;
+        top: 60%;
+        left: 50%;
         transform: translate(-50%, -50%);
         padding: 20px;
         background-color: #fff;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         z-index: 1000;
-        width: 40%;
+        width: 100%;
     }
 
     .modal button {
