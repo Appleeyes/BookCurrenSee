@@ -1,4 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const hamburger = document.querySelector(".hamburger");
+  const menu = document.querySelector(".nav-menu");
+  const close = document.querySelector("#close");
+
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    menu.classList.toggle("active");
+  });
+
+  if (close) {
+    close.addEventListener("click", () => {
+      menu.classList.remove("active");
+    });
+  }
+  
   const googleBooksApiKey = "AIzaSyC45ditKLqG1YRLC-i06rDASh5MT2WAg-Q";
   const googleBooksApiUrl = "https://www.googleapis.com/books/v1/volumes";
 
@@ -497,20 +512,5 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error searching books:", error);
       throw error;
     }
-  }
-
-  const hamburger = document.querySelector(".hamburger");
-  const menu = document.querySelector(".nav-menu");
-  const close = document.querySelector("#close");
-
-  hamburger.addEventListener("click", () => {
-    hamburger.classList.toggle("active");
-    menu.classList.toggle("active");
-  });
-
-  if (close) {
-    close.addEventListener("click", () => {
-      menu.classList.remove("active");
-    });
   }
 });
