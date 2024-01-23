@@ -6,22 +6,22 @@ BookCurrenSee is a web application that allows users to explore and discover fea
 1. **Featured Books**
 The application fetches random featured books to the homepage related to science, JavaScript, and PHP from the Google Books API.
 Users can view details of featured books, including the title, author, and a randomly generated price.
-<br>
+
 2. **All Books**
 The application fetches a random selection of books to the book store page related to science, JavaScript, and PHP from the Google Books API.
 Users can view details of all books, including the title, author, and a randomly generated price.
-<br>
+
 3. **Currency Conversion**
 Users can convert the displayed prices of books into different currencies using the Open Exchange Rates API.
 The application supports a wide range of common currencies, and users can choose their preferred currency from the dropdown menu.
-<br>
+
 4. **Book Search**
 Users can search for books using the Google Books API by entering a query in the search bar.
 The application dynamically updates the displayed books based on the search query.
-<br>
+
 5. **Responsive Design**
 The application is designed to be responsive and works well on various devices.
-<br>
+
 6. **Navigation Menu**
 The navigation menu provides quick access to different sections of the application, including Home, About Us, Books, New Releases, Contact Us, and Blog. On mobile, click on the menu icon (hamburger) to reveal the navigation options.
 
