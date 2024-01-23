@@ -61,9 +61,11 @@ document.addEventListener("DOMContentLoaded", function () {
   async function getRandomFeaturedBooks() {
     try {
       const response = await fetch(
-        `${googleBooksApiUrl}?q=${encodeURIComponent(
-          "JavaScript"
-        )}&key=${googleBooksApiKey}`
+        `${googleBooksApiUrl}?q=${encodeURIComponent([
+          "science",
+          "javascript",
+          "php",
+        ])}&key=${googleBooksApiKey}`
       );
 
       if (!response.ok) {
@@ -81,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Example usage to fetch random featured books
   getRandomFeaturedBooks()
     .then((randomFeaturedBooksData) =>
       addFeaturedBooksToDOM(randomFeaturedBooksData)
@@ -89,6 +90,91 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch((error) =>
       console.error("Failed to fetch random featured books:", error)
     );
+
+  // Function to add all books to the DOM
+  function addAllBooksToDOM(books) {
+    const allBooksContainer = document.getElementById("all-books-container");
+
+    books.forEach((book) => {
+      const bookElement = document.createElement("div");
+      bookElement.classList.add("books");
+
+      const image = document.createElement("img");
+      image.src =
+        book.volumeInfo.imageLinks?.thumbnail || "placeholder-image.jpg";
+      image.alt = "Book Cover";
+
+      const title = document.createElement("h3");
+      title.textContent = book.volumeInfo.title;
+
+      const author = document.createElement("p");
+      author.textContent = book.volumeInfo.authors
+        ? book.volumeInfo.authors.join(", ")
+        : "Unknown Author";
+
+      const priceDiv = document.createElement("div");
+      priceDiv.classList.add("price");
+
+      const originalPrice = parseFloat(generateRandomPrice().slice(2));
+      priceDiv.setAttribute("data-original-price", originalPrice);
+
+      const price = document.createElement("p");
+      price.textContent = generateRandomPrice();
+
+      const seeDetailsButton = document.createElement("button");
+      seeDetailsButton.textContent = "See Details";
+      seeDetailsButton.addEventListener("click", () => showBookDetails(book));
+
+      priceDiv.appendChild(price);
+
+      bookElement.appendChild(image);
+      bookElement.appendChild(title);
+      bookElement.appendChild(author);
+      bookElement.appendChild(priceDiv);
+      bookElement.appendChild(seeDetailsButton);
+
+      allBooksContainer.appendChild(bookElement);
+    });
+  }
+
+  async function getRandomBooks() {
+    const desiredCount = 52;
+    let fetchedBooks = [];
+    let offset = 0;
+
+    while (fetchedBooks.length < desiredCount) {
+      try {
+        const response = await fetch(
+          `${googleBooksApiUrl}?q=${encodeURIComponent([
+            "science",
+            "javascript",
+            "php",
+          ])}&key=${googleBooksApiKey}&startIndex=${offset}`
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch books");
+        }
+
+        const data = await response.json();
+        const newBooks = data.items || [];
+        fetchedBooks = fetchedBooks.concat(newBooks);
+
+        offset += newBooks.length;
+      } catch (error) {
+        console.error("Error fetching books:", error);
+        throw error;
+      }
+    }
+
+    const shuffledBooks = fetchedBooks.sort(() => Math.random() - 0.5);
+
+    return shuffledBooks.slice(0, desiredCount);
+  }
+
+  getRandomBooks()
+    .then((randomBooksData) => addAllBooksToDOM(randomBooksData))
+    .catch((error) => console.error("Failed to fetch random books:", error));
 
   const commonCurrencies = [
     "USD",
@@ -332,7 +418,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Event listener for the "Convert Currency" button
   const convertCurrencyButton = document.getElementById(
     "convert-currency-button"
   );
@@ -364,8 +449,8 @@ document.addEventListener("DOMContentLoaded", function () {
         ? book.volumeInfo.authors.join(", ")
         : "Unknown Author"
     }</p>
-    <p style="font-size: 5px";>Price: ${generateRandomPrice()}</p>
-    <p style="font-size: 5px";>Description: ${
+    <p style="font-size: 10px";>Price: ${generateRandomPrice()}</p>
+    <p style="font-size: 10px";>Description: ${
       book.volumeInfo.description || "No description available."
     }</p>
     
@@ -379,164 +464,48 @@ document.addEventListener("DOMContentLoaded", function () {
     bookDetailsContainer.appendChild(modal);
   }
 
+  const bookQueryInput = document.getElementById("book-query");
+  const searchButton = document.getElementById("search-button");
 
-  // async function getExchangeRates() {
-  //   try {
-  //     const response = await fetch(
-  //       `${openExchangeRatesApiUrl}?apikey=${openExchangeRatesApiKey}`
-  //     );
+  searchButton.addEventListener("click", function () {
+    const query = bookQueryInput.value.trim();
 
-  //     if (!response.ok) {
-  //       throw new Error("Failed to fetch exchange rates");
-  //     }
+    if (query.length > 0) {
+      const allBooksContainer = document.getElementById("all-books-container");
+      allBooksContainer.innerHTML = "";
+      searchBooks(query);
+    }
+  });
 
-  //     const data = await response.json();
-  //     return data.rates;
-  //   } catch (error) {
-  //     console.error("Error fetching exchange rates:", error);
-  //     throw error;
-  //   }
-  // }
+  async function searchBooks(query) {
+    try {
+      const response = await fetch(
+        `${googleBooksApiUrl}?q=${encodeURIComponent(
+          query
+        )}&key=${googleBooksApiKey}`
+      );
 
-  // // Function to handle currency conversion
-  // async function handleConvert(amount, fromCurrency, toCurrency) {
-  //   try {
-  //     const exchangeRates = await getExchangeRates();
+      if (!response.ok) {
+        throw new Error("Failed to fetch books");
+      }
 
-  //     const fromRate = exchangeRates[fromCurrency];
-  //     const toRate = exchangeRates[toCurrency];
+      const data = await response.json();
+      const books = data.items || [];
 
-  //     if (isNaN(amount) || !fromRate || !toRate) {
-  //       throw new Error("Invalid currency selection or amount");
-  //     }
+      addAllBooksToDOM(books);
+    } catch (error) {
+      console.error("Error searching books:", error);
+      throw error;
+    }
+  }
 
-  //     const convertedAmount = (amount / fromRate) * toRate;
-  //     return convertedAmount.toFixed(2);
-  //   } catch (error) {
-  //     console.error("Currency conversion error:", error);
-  //     throw error;
-  //   }
-  // }
+  const hamburger = document.querySelector(".hamburger");
+  const menu = document.querySelector(".nav-menu");
+  const close = document.querySelector("#close");
 
-  // // Function to handle currency conversion and update the DOM
-  // async function handleCurrencyConversion() {
-  //   const amountInput = document.getElementById("amount");
-  //   const fromCurrencySelect = document.getElementById("from-currency");
-  //   const toCurrencySelect = document.getElementById("to-currency");
-
-  //   const amount = parseFloat(amountInput.value);
-  //   const fromCurrency = fromCurrencySelect.value;
-  //   const toCurrency = toCurrencySelect.value;
-
-  //   if (!isNaN(amount)) {
-  //     try {
-  //       const convertedAmount = await handleConvert(
-  //         amount,
-  //         fromCurrency,
-  //         toCurrency
-  //       );
-  //       const conversionResultContainer =
-  //         document.getElementById("conversion-results");
-  //       conversionResultContainer.textContent = `Converted Amount: ${convertedAmount} ${toCurrency}`;
-  //     } catch (error) {
-  //       alert("Failed to convert currency. Please check your inputs.");
-  //     }
-  //   } else {
-  //     alert("Please enter a valid numeric amount for conversion.");
-  //   }
-  // }
-
-  // function updateBookSearchDOM(bookData) {
-  //   const bookResultsContainer = document.getElementById("book-results");
-  //   bookResultsContainer.innerHTML = ""; // Clear previous results
-
-  //   bookData.forEach((book) => {
-  //     const bookCard = document.createElement("div");
-  //     bookCard.classList.add("book-card");
-
-  //     const title = document.createElement("h3");
-  //     title.textContent = book.volumeInfo.title;
-
-  //     const coverImage = document.createElement("img");
-  //     coverImage.src =
-  //       book.volumeInfo.imageLinks?.thumbnail || "placeholder-image.jpg";
-  //     coverImage.alt = "Book Cover";
-
-  //     const description = document.createElement("p");
-  //     description.textContent =
-  //       book.volumeInfo.description || "No description available.";
-
-  //     bookCard.appendChild(title);
-  //     bookCard.appendChild(coverImage);
-  //     bookCard.appendChild(description);
-
-  //     bookResultsContainer.appendChild(bookCard);
-  //   });
-  // }
-
-  // function updateCurrencyConverterDOM(exchangeRates) {
-  //   const conversionResultsContainer =
-  //     document.getElementById("conversion-results");
-  //   conversionResultsContainer.innerHTML = ""; // Clear previous results
-
-  //   const currencies = Object.keys(exchangeRates);
-
-  //   currencies.forEach((currency) => {
-  //     const conversionResult = document.createElement("div");
-  //     conversionResult.classList.add("conversion-result");
-
-  //     const currencyCode = document.createElement("span");
-  //     currencyCode.textContent = currency;
-
-  //     const rate = document.createElement("span");
-  //     rate.textContent = exchangeRates[currency].toFixed(2);
-
-  //     conversionResult.appendChild(currencyCode);
-  //     conversionResult.appendChild(rate);
-
-  //     conversionResultsContainer.appendChild(conversionResult);
-  //   });
-  // }
-
-  // // Function to handle book search
-  // function handleBookSearch() {
-  //   const bookQueryInput = document.getElementById("book-query");
-  //   const bookQuery = bookQueryInput.value.trim();
-
-  //   if (bookQuery) {
-  //     getBookDetails(bookQuery)
-  //       .then((bookData) => updateBookSearchDOM(bookData))
-  //       .catch((error) => console.error("Book search failed:", error));
-  //   } else {
-  //     alert("Please enter a book title or author to search.");
-  //   }
-  // }
-
-  // // Event listener for the convert button
-  // const convertButton = document.getElementById("convert-button");
-  // convertButton.addEventListener("click", handleCurrencyConversion);
-
-  // // Event listener for the search button
-  // const searchButton = document.getElementById("search-button");
-  // searchButton.addEventListener("click", handleBookSearch);
-
-  // // Example usage
-  // const bookQuery = "JavaScript"; // User's book search query
-  // getBookDetails(bookQuery)
-  //   .then((bookData) => updateBookSearchDOM(bookData))
-  //   .catch((error) => console.error("Book search failed:", error));
-
-  // getExchangeRates()
-  //   .then((exchangeRates) => updateCurrencyConverterDOM(exchangeRates))
-  //   .catch((error) => console.error("Exchange rates update failed:", error));
-
-  const hamburger = document.querySelector('.hamburger');
-  const menu = document.querySelector('.nav-menu');
-  const close = document.querySelector('#close')
-
-  hamburger.addEventListener("click", () =>{
-     hamburger.classList.toggle("active");
-     menu.classList.toggle("active");
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    menu.classList.toggle("active");
   });
 
   if (close) {
@@ -544,5 +513,4 @@ document.addEventListener("DOMContentLoaded", function () {
       menu.classList.remove("active");
     });
   }
-
 });

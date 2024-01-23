@@ -220,13 +220,15 @@ button:hover {
     margin-top: 50px;
 }
 
-#featured {
+#featured,
+#featured2 {
     padding: 70px 0px;
     text-align: center;
     background-color: #FCECEC;
 }
 
-#featured p {
+#featured p,
+#featured2 p {
     color: #7A7A7A;
     font-size: 13px;
     font-style: normal;
@@ -237,21 +239,24 @@ button:hover {
     margin-bottom: 20px;
 }
 
-#featured .title {
+#featured .title,
+#featured2 .title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 50px;
 }
 
-#featured .title hr {
+#featured .title hr,
+#featured2 .title hr {
     width: 600px;
     height: 1px;
     border: none;
     background-color: #E0E0E0;
 }
 
-#featured h2 {
+#featured h2,
+#featured2 h2 {
     color: #393280;
     font-size: 48px;
     font-style: normal;
@@ -260,14 +265,22 @@ button:hover {
     text-transform: capitalize;
 }
 
-#featured .featured-books {
+#featured .featured-books,
+#featured2 .featured-books {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 }
 
-#featured .featured-books img {
+#featured .featured-books .books,
+#featured2 .featured-books .books {
+    flex: 0 1 calc(25% - 10px);
+    margin: 5px 5px 35px;
+}
+
+#featured .featured-books img,
+#featured2 .featured-books img {
     width: 300px;
     height: 400px;
     background-color: #fff;
@@ -276,7 +289,8 @@ button:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-#featured .books h3 {
+#featured .books h3,
+#featured2 .books h3 {
     color: #393280;
     font-size: 22px;
     font-style: normal;
@@ -286,7 +300,8 @@ button:hover {
     margin-top: 20px;
 }
 
-#featured .books p {
+#featured .books p,
+#featured2 .books p {
     color: #888;
     font-size: 14px;
     font-style: normal;
@@ -297,12 +312,15 @@ button:hover {
     margin-top: 10px;
 }
 
-#featured .price {
+#featured .price,
+#featured2 .price {
     margin-bottom: 15px;
 }
 
 #featured .price,
-#featured .price p {
+#featured .price p,
+#featured2 .price,
+#featured2 .price p {
     color: #ED553B;
     font-size: 18px;
     font-style: normal;
@@ -312,26 +330,30 @@ button:hover {
     text-transform: capitalize;
 }
 
-#featured button {
+#featured button,
+#featured2 button {
     padding: 5px 10px;
     font-size: 10px;
     margin-top: 0;
 }
 
-#featured hr {
+#featured hr,
+#featured2 hr {
     height: 1px;
     border: none;
     background-color: #E0E0E0;
     margin-top: 50px;
 }
 
-#featured .all-books {
+#featured .all-books,
+#featured2 .all-books {
     display: flex;
     justify-content: space-between;
     margin-top: 50px;
 }
 
-#featured .all-books a {
+#featured .all-books a,
+#featured2 .all-books a {
     color: #ED553B;
     font-size: 16px;
     font-style: normal;
@@ -341,11 +363,13 @@ button:hover {
     text-transform: capitalize;
 }
 
-#featured .change-currency {
+#featured .change-currency,
+#featured2 .change-currency {
     margin-top: 50px;
 }
 
-#featured select {
+#featured select,
+#featured2 select {
     border: 1px solid #393280;
     width: 300px;
     padding: 20px;
@@ -357,7 +381,8 @@ button:hover {
     border-radius: 10px;
 }
 
-#featured .change-currency button {
+#featured .change-currency button,
+#featured2 .change-currency button {
     padding: 20px 50px;
 }
 
@@ -365,8 +390,8 @@ button:hover {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
+    /* transform: translate(-30%, -30%); */
+    padding: 10px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
@@ -437,6 +462,7 @@ button:hover {
     background-color: #FCECEC;
     padding-bottom: 150px;
     position: relative;
+    z-index: -1;
 }
 
 #newsletter .news-container {
@@ -618,6 +644,33 @@ button:hover {
     display: none;
 }
 
+#book-search-form {
+    width: 30%;
+    background-color: #ED553B;
+    color: #fff;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 30px;
+}
+
+#book-search-form input {
+    padding: 10px;
+    width: 300px;
+    outline: none;
+    background: none;
+    border: none;
+}
+
+#book-search-form input::placeholder {
+    font-size: 20px;
+    color: #fff;
+}
+
+#book-search-form button {
+    background-color: #393280;
+    color: #fff;
+}
+
 @media screen and (max-width: 768px) {
     #header .socials {
         padding: 10px;
@@ -693,6 +746,7 @@ button:hover {
     #hero,
     #categories,
     #featured .featured-books,
+    #featured2 .featured-books,
     #categories .category-container,
     #deal .deal-container {
         flex-direction: column;
@@ -755,71 +809,92 @@ button:hover {
         margin-top: 30px;
     }
 
-    #featured {
+    #featured,
+    #featured2 {
         padding: 40px 0px;
     }
 
-    #featured p {
+    #featured .featured-books .books,
+    #featured2 .featured-books .books {
+        flex: none;
+        margin: 0;
+    }
+
+    #featured p,
+    #featured2 p {
         font-size: 9px;
         letter-spacing: 1.20px;
     }
 
-    #featured .title hr {
+    #featured .title hr,
+    #featured2 .title hr {
         width: 80px;
     }
 
-    #featured h2 {
+    #featured h2,
+    #featured2 h2 {
         font-size: 20px;
     }
 
-    #featured .books h3 {
+    #featured .books h3,
+    #featured2 .books h3 {
         font-size: 15px;
         margin-top: 15px;
     }
 
-    #featured .books p {
+    #featured .books p,
+    #featured2 .books p {
         font-size: 10px;
         letter-spacing: 0.18px;
         margin-top: 7px;
     }
 
-        #featured .price,
-        #featured .price p {
-            font-size: 12px;
-            letter-spacing: 0.16px;
-        }
+    #featured .price,
+    #featured .price p,
+    #featured2 .price,
+    #featured2 .price p {
+        font-size: 12px;
+        letter-spacing: 0.16px;
+    }
 
-    #featured button {
+    #featured button,
+    #featured2 button {
         margin-bottom: 20px;
     }
 
-    #featured hr {
+    #featured hr,
+    #featured2 hr {
         margin-top: 0px;
     }
 
-    #featured .change-currency {
+    #featured .change-currency,
+    #featured2 .change-currency {
         margin-top: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    #featured select {
+    #featured select,
+    #featured2 select {
         width: 150px;
         padding: 20px;
     }
 
-    #featured .change-currency button {
+    #featured .change-currency button,
+    #featured2 .change-currency button {
         padding: 20px 10px;
         margin-bottom: 0;
     }
 
-    #featured .all-books a {
+    #featured .all-books a,
+    #featured2 .all-books a {
         font-size: 12px;
         letter-spacing: 0.22px;
     }
 
     #featured .all-books svg,
+    #featured2 .all-books svg,
     #hero svg,
     #deal svg {
         width: 80px;
@@ -984,59 +1059,20 @@ button:hover {
         font-size: 10px;
         letter-spacing: 0.16px;
     }
+
+    #book-search-form {
+        width: 100%;
+        margin: 50px 0;
+        padding: 10px;
+        border-radius: 0px;
+    }
+
+    #book-search-form input {
+        padding: 10px;
+        width: 50%;
+    }
+
+    #book-search-form input::placeholder {
+        font-size: 15px;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#book-search-section,
-#currency-converter-section {
-    /* max-width: 600px; */
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#book-results {
-    display: grid;
-    grid-template-columns: 2 1;
-}
-
-.book-card {
-    border: 1px solid #ddd;
-    margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.conversion-result {
-    margin: 5px;
-}
-
-/* Additional CSS styles for individual sections can be added */

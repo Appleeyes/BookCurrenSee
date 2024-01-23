@@ -27,16 +27,16 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="nav">
             <div class="circle"></div>
             <div class="navigation">
                 <ul class="nav-menu">
-                    <li><a class="active" href="index.html">HOME</a></li>
+                    <li><a href="index.html">HOME</a></li>
                     <li class="line">|</li>
                     <li><a href="#">ABOUT US</a></li>
                     <li class="line">|</li>
-                    <li><a href="books.html">BOOKS</a></li>
+                    <li><a class="active" href="books.html">BOOKS</a></li>
                     <li class="line">|</li>
                     <li><a href="#">NEW RELEASE</a></li>
                     <li class="line">|</li>
@@ -64,66 +64,12 @@
         </div>
     </section>
 
-    <section id="hero">
-        <div class="left">
-            <h2>ipsum dolor si</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu feugiat amet, libero ipsum enim
-                pharetra hac. Urna commodo, lacus ut magna velit eleifend. Amet, quis urna, a eu.</p>
-            <button>READ MORE <i class="fa-solid fa-arrow-right"></i></button>
-            <div class="svg">
-                <svg xmlns="http://www.w3.org/2000/svg" width="132" height="39" viewBox="0 0 132 39" fill="none">
-                    <circle cx="63.5" cy="19.5" r="6.5" fill="#BEBEBE" />
-                    <circle cx="19.5" cy="19.5" r="6.5" fill="#ED553B" />
-                    <circle cx="19.5" cy="19.5" r="19" stroke="#ED553B" />
-                    <circle cx="94.5" cy="19.5" r="6.5" fill="#BEBEBE" />
-                    <circle cx="125.5" cy="19.5" r="6.5" fill="#BEBEBE" />
-                </svg>
-            </div>
+    <section id="featured2">
+        <div id="book-search-form">
+            <input type="text" id="book-query" placeholder="Search for a Book" />
+            <button id="search-button">Search</button>
         </div>
-        <div class="right">
-            <img src="images/book.png" alt="">
-        </div>
-    </section>
-
-    <section id="categories">
-        <div class="category-title">
-            <div class="title-left">
-                <div>
-                    <hr>
-                    <p>Categories</p>
-                </div>
-                <h3>Explore our Top Categories</h3>
-            </div>
-            <div class="title-right">
-                <i class="fa-solid fa-arrow-left"></i>
-                <i class="fa-solid fa-arrow-right"></i>
-            </div>
-        </div>
-        <div class="category-container">
-            <div class="category">
-                <img src="images/cat3.png" alt="">
-                <p>Higher Education</p>
-            </div>
-            <div class="category">
-                <img src="images/cat2.png" alt="">
-                <p>Management Books</p>
-            </div>
-            <div class="category">
-                <img src="images/cat1.png" alt="">
-                <p>Engineering books</p>
-            </div>
-        </div>
-        <button>View More <i class="fa-solid fa-arrow-right"></i></button>
-    </section>
-
-    <section id="featured">
-        <p>SOME QUALITY ITEMS</p>
-        <div class="title">
-            <hr>
-            <h2>New Featured Books</h2>
-            <hr>
-        </div>
-        <div class="featured-books" id="featured-books-container">
+        <div class="featured-books" id="all-books-container">
 
         </div>
         <hr>
@@ -135,7 +81,6 @@
         <div id="book-details-container"></div>
 
         <div class="all-books">
-            <span></span>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="132" height="39" viewBox="0 0 132 39" fill="none">
                     <circle cx="63.5" cy="19.5" r="6.5" fill="#BEBEBE" />
@@ -145,47 +90,9 @@
                     <circle cx="125.5" cy="19.5" r="6.5" fill="#BEBEBE" />
                 </svg>
             </div>
-            <a href="books.html">View All Products <i class="fa-solid fa-arrow-right"></i></a>
         </div>
     </section>
 
-    <section id="deal">
-        <div class="deal-container">
-            <div class="deal-left">
-                <h2>All books are 50% off now! Don't miss such a deal!</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu feugiat amet, libero ipsum enim
-                    pharetra hac.</p>
-                <div class="countdown">
-                    <div class="timer">
-                        <h3>768</h3>
-                        <p>DAYS</p>
-                    </div>
-                    <div class="timer">
-                        <h3>01</h3>
-                        <p>HOUR</p>
-                    </div>
-                    <div class="timer">
-                        <h3>27</h3>
-                        <p>MINT</p>
-                    </div>
-                    <div class="timer">
-                        <h3>55</h3>
-                        <p>SEC</p>
-                    </div>
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="132" height="39" viewBox="0 0 132 39" fill="none">
-                    <circle cx="63.5" cy="19.5" r="6.5" fill="#BEBEBE" />
-                    <circle cx="19.5" cy="19.5" r="6.5" fill="#ED553B" />
-                    <circle cx="19.5" cy="19.5" r="19" stroke="#ED553B" />
-                    <circle cx="94.5" cy="19.5" r="6.5" fill="#BEBEBE" />
-                    <circle cx="125.5" cy="19.5" r="6.5" fill="#BEBEBE" />
-                </svg>
-            </div>
-            <div class="deal-right">
-                <img src="images/Unsplash.png" alt="">
-            </div>
-        </div>
-    </section>
 
     <section id="newsletter">
         <div class="news-container">
@@ -206,7 +113,8 @@
         <div class="top">
             <div class="first">
                 <img src="images/sample logo 1.png" alt="">
-                <p>Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor, sit amet consectetur adipisicing elit. A, quidem. </p>
+                <p>Nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor, sit
+                    amet consectetur adipisicing elit. A, quidem. </p>
                 <div class="social-icon">
                     <ul>
                         <li><i class="fa-brands fa-facebook"></i></li>
